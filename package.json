@@ -1,0 +1,19 @@
+{
+  "name": "node-simpletsdb",
+  "version": "0.0.1",
+  "description": "A Nodejs library for interacting with SimpleTSDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/test-db"
+  },
+  "author": "a1c9lll",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^9.0.3"
+  }
+}
