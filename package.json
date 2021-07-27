@@ -1,6 +1,6 @@
 {
   "name": "node-simpletsdb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Nodejs library for interacting with SimpleTSDB",
   "main": "index.js",
   "scripts": {
