@@ -2,7 +2,6 @@ const { before, describe, it } = require('mocha');
 const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised).should();
-const { expect } = chai;
 
 const { SimpleTSDB, Point } = require('../index');
 
@@ -81,7 +80,7 @@ describe('POST /insert_points', function testInsertPoints() {
 
   it('should be fulfilled successfully', () => {
     const points = [];
-    for(let i = 0; i < 100; i++) {
+    for(let i = 0; i < 99; i++) {
       points[i] = new Point({
         metric: 'test0',
         value: i,
@@ -96,6 +95,17 @@ describe('POST /insert_points', function testInsertPoints() {
       tags: ['id']
     }).then(() => db.insertPoints(points)).should.eventually.fulfilled;
   }).timeout(10000);
+
+  it('should also be fulfilled successfully', () => {
+    db.insertPoint(new Point({
+      metric: 'test0',
+      value: 99,
+      tags: {
+        'id': '2',
+      },
+      timestamp: (Date.now()-99*1000)*1000000,
+    })).should.eventually.fulfilled;
+  });
 
   it('should be rejected due to metric being nonexistent', () => {
     return db.insertPoints([new Point({
