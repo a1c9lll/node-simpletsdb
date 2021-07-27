@@ -8,6 +8,14 @@
   },
   "author": "a1c9lll",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/a1c9lll/node-simpletsdb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a1c9lll/node-simpletsdb"
+  },
+  "keywords": [
+    "simpletsdb"
+  ],
   "dependencies": {
     "axios": "^0.21.1"
   },
