@@ -120,7 +120,10 @@ describe('POST /query_points', function testQueryPoints() {
   it('should be fulfilled successfully', () => {
     return db.queryPoints({
       metric: 'test0',
-      start: (Date.now() - 60*1000*60) * 1000000
+      start: (Date.now() - 60*1000*60) * 1000000,
+      tags: {
+        'id': '2'
+      }
     }).then(points => {
       if(points.length !== 100) {
         throw Error('expected 100 points');
