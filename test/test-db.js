@@ -12,10 +12,13 @@ const db = new SimpleTSDB({
 
 before(async () => {
   try {
-    await db.deleteMetric({ metric: 'test0' });
-  } catch(ignored) {
-  }
-});
+    await db.deletePoints({
+      metric: 'test0',
+      start: (Date.now() - 60*1000*60) * 1000000,
+      end: Date.now() * 1000000
+    });
+  } catch(ignored) {}
+})
 
 describe('POST /insert_points', function testInsertPoints() {
   it('should throw due to points not being array', () => {
@@ -34,10 +37,7 @@ describe('POST /insert_points', function testInsertPoints() {
         timestamp: (Date.now()-i*1000)*1000000,
       })
     }
-    return db.createMetric({
-      metric: 'test0',
-      tags: ['id']
-    }).then(() => db.insertPoints(points)).should.eventually.fulfilled;
+    return db.insertPoints(points).should.eventually.fulfilled;
   }).timeout(10000);
 
   it('should also be fulfilled successfully', () => {
@@ -49,14 +49,6 @@ describe('POST /insert_points', function testInsertPoints() {
       },
       timestamp: (Date.now()-99*1000)*1000000,
     })).should.eventually.fulfilled;
-  });
-
-  it('should be rejected due to metric being nonexistent', () => {
-    return db.insertPoints([new Point({
-      metric: 'test999zx',
-      value: 1,
-      timestamp: Date.now() * 1000000
-    })]).should.eventually.rejectedWith(Error);
   });
 });
 
@@ -70,7 +62,7 @@ describe('POST /query_points', function testQueryPoints() {
       }
     }).then(points => {
       if(points.length !== 100) {
-        throw Error('expected 100 points');
+        throw Error('expected 100 points but got ' + points.length);
       }
     }).should.eventually.fulfilled;
   }).timeout(10000);
@@ -117,13 +109,6 @@ describe('POST /query_points', function testQueryPoints() {
   it('should be rejected due to invalid metric name', () => {
     return db.queryPoints({
       metric: 'a b',
-      start: (Date.now() - 60*1000*60) * 1000000
-    }).should.eventually.rejectedWith(Error);
-  });
-
-  it('should be rejected due to metric being nonexistent', () => {
-    return db.queryPoints({
-      metric: 'sfsdfdf3f',
       start: (Date.now() - 60*1000*60) * 1000000
     }).should.eventually.rejectedWith(Error);
   });
