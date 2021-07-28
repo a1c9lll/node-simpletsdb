@@ -45,8 +45,9 @@ const db = new SimpleTSDB({
 ###### Parameters: `options`
 
 `options` has the following properties:
-
-|`metric`|`string`|The name of the metric to delete.|
+| Field  | Type   | Description                                            |
+|:------ |:------:|:------------------------------------------------------ |
+|`metric`|`string`|The name of the metric to delete.                       |
 
 #### Function: `createMetric`
 
