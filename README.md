@@ -47,6 +47,8 @@ const db = new SimpleTSDB({
 ###### Example:
 
 ```javascript
+const { Point } = require('node-simpletsdb');
+
 const pt = new Point({
   metric: 'test0',
   value: 99,
@@ -64,8 +66,6 @@ const pt = new Point({
 ###### Example:
 
 ```javascript
-const { Point } = require('node-simpletsdb');
-
 db.insertPoint(new Point({
   metric: 'test0',
   value: 99,
