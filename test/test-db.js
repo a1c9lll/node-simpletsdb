@@ -162,7 +162,7 @@ describe('POST /query_points', function testQueryPoints() {
   it('should throw due to aggregators not being an array', () => {
     return (() => db.queryPoints({
       metric: 'test0',
-      start: Date.now() - 36000,
+      start: (Date.now() - 60*1000*60) * 1000000,
       window: {
         every: '1m',
       },

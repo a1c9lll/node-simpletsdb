@@ -14,13 +14,13 @@ npm install node-simpletsdb
 
 `options` has the following properties:
 
-| Field            | Type   | Description                                            |
-|:---------------- |:------:|:------------------------------------------------------ |
-|`host`            |`string`|The host used to connect to SimpleTSDB                  |
-|`port`            |`number`|The port used to connect to SimpleTSDB                  |
-|`insertBufferSize`|`number`|The buffer size used by insertPoints. Defaults to 65536.|
+| Field            | Type   | Description                                                        |
+|:---------------- |:------:|:------------------------------------------------------------------ |
+|`host`            |`string`|The host used to connect to SimpleTSDB                              |
+|`port`            |`number`|The port used to connect to SimpleTSDB                              |
+|`insertBufferSize`|`number`|_optional:_ The buffer size used by insertPoints. Defaults to 65536.|
 
-Example:
+###### Example:
 
 ```javascript
 const { SimpleTSDB } = require('node-simpletsdb');
@@ -36,8 +36,9 @@ const db = new SimpleTSDB({
 ###### Parameters: `options`
 
 `options` has the following properties:
-
-|`metric`|`string`|The name of the metric to check for existence.|
+| Field            | Type   | Description                                            |
+|:---------------- |:------:|:------------------------------------------------------ |
+|`metric`          |`string`|The name of the metric to check for existence.          |
 
 #### Function: `deleteMetric`
 
@@ -53,8 +54,10 @@ const db = new SimpleTSDB({
 
 `options` has the following properties:
 
-|`metric`|`string`|The name of the metric to create.|
-|`tags`|`array`|The tags to associate with this metric.|
+| Field            | Type   | Description                                            |
+|:---------------- |:------:|:------------------------------------------------------ |
+|`metric`          |`string`|The name of the metric to create.                       |
+|`tags`            |`array` |_optional:_ The tags to associate with this metric.     |
 
 ###### Example:
 
@@ -100,7 +103,54 @@ The same as `insertPoint` but takes an array of points.
 
 `query` has the following properties:
 
-|`metric`|`string`|The metric to query.|
-|`start`|`number`|The timestamp in nanoseconds for the start of the query.|
-|`end`|`number`|_optional:_ The timestamp in nanoseconds for the end of the query.|
-|`tags`|`object`|Key/value pairs to add to the query.|
+| Field       | Type   | Description                                                      |
+|:----------- |:------:|:---------------------------------------------------------------- |
+|`metric`     |`string`|The metric to query.                                              |
+|`start`      |`number`|The timestamp in nanoseconds for the start of the query.          |
+|`end`        |`number`|_optional:_ The timestamp in nanoseconds for the end of the query.|
+|`tags`       |`object`|_optional:_ Key/value pairs to add criteria to the query.         |
+|`window`     |`object`|_optional:_ Windowing options.                                    |
+|`aggregators`|`array` |_optional:_ An array of aggregators.                              |
+
+###### Example:
+
+```javascript
+db.queryPoints({
+  metric: 'test0',
+  start: (Date.now() - 360000) * 1000000, // SimpleTSDB uses nanoseconds
+  window: {
+    every: '1m',
+  }
+})
+.then(points => console.log(points))
+.catch(err => console.error(err));
+```
+
+#### Function: `deletePoints`
+
+###### Parameters: `options`
+
+`options` has the following properties:
+
+| Field       | Type   | Description                                                      |
+|:----------- |:------:|:---------------------------------------------------------------- |
+|`metric`     |`string`|The metric to query.                                              |
+|`start`      |`number`|The timestamp in nanoseconds for the start of the query.          |
+|`end`        |`number`|The timestamp in nanoseconds for the end of the query.            |
+|`tags`       |`object`|_optional:_ Key/value pairs to add criteria to the query.         |
+
+###### Example:
+
+```javascript
+db.deletePoints({
+  metric: 'test0',
+  start: (Date.now() - 36000) * 1000000, // SimpleTSDB uses nanoseconds
+  end: Date.now() * 1000000
+})
+.then(() => console.log('successfully deleted points'))
+.catch(err => console.error(err));
+```
+
+## TODO
+
+Add some sort of time library to make working with timestamps easier.
