@@ -31,6 +31,32 @@ const db = new SimpleTSDB({
 });
 ```
 
+#### Object: `Point`
+
+###### Parameters: `options`
+
+`options` has the following properties:
+
+| Field     | Type   | Description                                           |
+|:--------- |:------:|:----------------------------------------------------- |
+|`metric`   |`string`|The metric name of the  point                          |
+|`value`    |`number`|The value of the point                                 |
+|`timestamp`|`number`|The timestamp of the point                             |
+|`tags`     |`array` |_optional_: The tags associated with the inserted point|
+
+###### Example:
+
+```javascript
+const pt = new Point({
+  metric: 'test0',
+  value: 99,
+  timestamp: Date.now() * 1000000, // SimpleTSDB uses nanoseconds
+  tags: {
+    'id': '2',
+  }
+});
+```
+
 #### Function: `insertPoint`
 
 ###### Parameters: `point`
@@ -48,8 +74,8 @@ db.insertPoint(new Point({
   },
   timestamp: Date.now() * 1000000, // SimpleTSDB uses nanoseconds
 }))
-.then(() => console.log('successfully inserted point'))
-.catch(err => console.error(err));
+  .then(() => console.log('successfully inserted point'))
+  .catch(err => console.error(err));
 ```
 
 #### Function: `insertPoints`
@@ -84,8 +110,8 @@ db.queryPoints({
     every: '1m',
   }
 })
-.then(points => console.log(points))
-.catch(err => console.error(err));
+  .then(points => console.log(points))
+  .catch(err => console.error(err));
 ```
 
 #### Function: `deletePoints`
@@ -109,8 +135,8 @@ db.deletePoints({
   start: (Date.now() - 36000) * 1000000, // SimpleTSDB uses nanoseconds
   end: Date.now() * 1000000
 })
-.then(() => console.log('successfully deleted points'))
-.catch(err => console.error(err));
+  .then(() => console.log('successfully deleted points'))
+  .catch(err => console.error(err));
 ```
 
 ## TODO
