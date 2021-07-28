@@ -17,62 +17,6 @@ before(async () => {
   }
 });
 
-describe('GET /metric_exists', function testMetricExists() {
-  it('should return an object with an exists property', () => {
-    return db.metricExists({ metric: 'test0' }).should.eventually.have.property('exists');
-  });
-
-  it('should throw due to options not being object', () => {
-    return (() => db.metricExists()).should.throw(TypeError);
-  });
-
-  it('should throw due to name being empty', () => {
-    return db.metricExists({ metric: '' }).should.eventually.rejectedWith(Error);
-  });
-});
-
-describe('POST /create_metric', function testCreateMetric() {
-  it('should be fulfilled successfully', () => {
-    return db.createMetric({
-      metric: 'test0',
-      tags: ['id']
-    }).should.be.fulfilled;
-  });
-
-  it('should be rejected as it\'s a duplicate', () => {
-    return db.createMetric({
-      metric: 'test0',
-      tags: ['id']
-    }).should.be.rejectedWith(Error);
-  });
-
-  it('should throw a TypeError', () => {
-    return (() => db.createMetric()).should.throw(TypeError);
-  });
-
-  it('should throw an options.metric Error', () => {
-    return (() => db.createMetric({})).should.throw(Error);
-  });
-});
-
-describe('GET /delete_metric', function testDeleteMetric() {
-  it('should be fulfilled successfully', () => {
-    return db.deleteMetric({ metric: 'test0' }).should.eventually.fulfilled;
-  });
-
-  it('should throw a 404 error', () => {
-    return db.deleteMetric({ metric: 'test0' }).should.eventually.rejectedWith(Error);
-  });
-
-  it('should throw a TypeError', () => {
-    return (() => db.deleteMetric()).should.throw(TypeError);
-  });
-
-  it('should throw an options.metric Error', () => {
-    return (() => db.deleteMetric({})).should.throw(Error);
-  });
-});
-
 describe('POST /insert_points', function testInsertPoints() {
   it('should throw due to points not being array', () => {
     return (() => db.insertPoints(1)).should.throw(TypeError);

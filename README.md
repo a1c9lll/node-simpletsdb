@@ -31,46 +31,6 @@ const db = new SimpleTSDB({
 });
 ```
 
-#### Function: `metricExists`
-
-###### Parameters: `options`
-
-`options` has the following properties:
-| Field            | Type   | Description                                            |
-|:---------------- |:------:|:------------------------------------------------------ |
-|`metric`          |`string`|The name of the metric to check for existence.          |
-
-#### Function: `deleteMetric`
-
-###### Parameters: `options`
-
-`options` has the following properties:
-| Field  | Type   | Description                                            |
-|:------ |:------:|:------------------------------------------------------ |
-|`metric`|`string`|The name of the metric to delete.                       |
-
-#### Function: `createMetric`
-
-###### Parameters: `options`
-
-`options` has the following properties:
-
-| Field            | Type   | Description                                            |
-|:---------------- |:------:|:------------------------------------------------------ |
-|`metric`          |`string`|The name of the metric to create.                       |
-|`tags`            |`array` |_optional:_ The tags to associate with this metric.     |
-
-###### Example:
-
-```javascript
-db.createMetric({
-  metric: 'test0',
-  tags: ['id']
-})
-.then(() => console.log('successfully created metric'))
-.catch(err => console.error(err));
-```
-
 #### Function: `insertPoint`
 
 ###### Parameters: `point`
