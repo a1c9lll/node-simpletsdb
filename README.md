@@ -8,7 +8,7 @@ npm install node-simpletsdb
 
 ## API
 
-#### SimpleTSDB
+#### Object: `SimpleTSDB`
 
 ###### Parameters: `options`
 
