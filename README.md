@@ -97,8 +97,8 @@ The same as `insertPoint` but takes an array of points.
 |`end`        |`number`|_optional:_ The timestamp in nanoseconds for the end of the query.|
 |`n`          |`number`|_optional:_ The max number of points to return.                   |
 |`tags`       |`object`|_optional:_ Key/value pairs to add criteria to the query.         |
-|`window`     |`object`|_optional:_ Windowing options.                                    |
-|`aggregators`|`array` |_optional:_ An array of aggregators.                              |
+|`window`     |`object`|_optional:_ Windowing options. See [Windowing / Gap filling](https://github.com/a1c9lll/SimpleTSDB/#windowing--gap-filling)                                   |
+|`aggregators`|`array` |_optional:_ An array of aggregators. See [aggregators](https://github.com/a1c9lll/SimpleTSDB/#aggregators)                              |
 
 ###### Example:
 
