@@ -109,6 +109,7 @@ The same as `insertPoint` but takes an array of points.
 |`metric`     |`string`|The metric to query.                                              |
 |`start`      |`number`|The timestamp in nanoseconds for the start of the query.          |
 |`end`        |`number`|_optional:_ The timestamp in nanoseconds for the end of the query.|
+|`n`          |`number`|_optional:_ The max number of points to return.                   |
 |`tags`       |`object`|_optional:_ Key/value pairs to add criteria to the query.         |
 |`window`     |`object`|_optional:_ Windowing options.                                    |
 |`aggregators`|`array` |_optional:_ An array of aggregators.                              |
